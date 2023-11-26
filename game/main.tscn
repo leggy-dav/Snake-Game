@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://x0julvb20t1j"]
+
+[ext_resource type="PackedScene" uid="uid://v30cf8i15vrn" path="res://tile_map.tscn" id="1_jrfpb"]
+[ext_resource type="PackedScene" uid="uid://bfsqwkqf10gce" path="res://snake/snake_head.tscn" id="2_eau8g"]
+[ext_resource type="Script" path="res://Game_Manager.gd" id="3_nr774"]
+[ext_resource type="PackedScene" uid="uid://b2cp23x5h0tqj" path="res://food.tscn" id="4_1eon6"]
+[ext_resource type="Texture2D" uid="uid://f8q4atgvd3l3" path="res://images/sky-blue.png" id="5_04ddr"]
+[ext_resource type="FontFile" uid="uid://bhi2sw3ev6ur3" path="res://fonts/SairaExtraCondensed-Bold.ttf" id="6_8ma8c"]
+[ext_resource type="Script" path="res://HUD.gd" id="6_ys02i"]
+[ext_resource type="AudioStream" uid="uid://bvt0swlfeqeec" path="res://sounds/crunch.wav" id="8_jukvr"]
+
+[node name="Main" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_jrfpb")]
+position = Vector2(176, 208)
+
+[node name="SnakeHead" parent="." instance=ExtResource("2_eau8g")]
+position = Vector2(184, 184)
+
+[node name="TimerTurn" type="Timer" parent="."]
+wait_time = 0.12
+
+[node name="Game_Manager" type="Node2D" parent="."]
+script = ExtResource("3_nr774")
+food = ExtResource("4_1eon6")
+
+[node name="BackgrounSky" type="Sprite2D" parent="."]
+z_index = -4096
+position = Vector2(175.5, 174)
+scale = Vector2(11.0313, 11)
+texture = ExtResource("5_04ddr")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("6_ys02i")
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 8.0
+offset_top = -10.0
+offset_right = 62.0
+offset_bottom = 45.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.431373)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_fonts/font = ExtResource("6_8ma8c")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="HUD"]
+offset_left = 96.0
+offset_top = 176.0
+offset_right = 256.0
+offset_bottom = 256.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.431373)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("6_8ma8c")
+theme_override_font_sizes/font_size = 46
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="HUD"]
+offset_left = 129.0
+offset_top = 272.0
+offset_right = 223.0
+offset_bottom = 303.0
+text = "Start"
+
+[node name="CrunchSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_jukvr")
+pitch_scale = 1.5
+
+[connection signal="timeout" from="TimerTurn" to="SnakeHead" method="_on_timer_turn_timeout"]
+[connection signal="timeout" from="TimerTurn" to="Game_Manager" method="_on_timer_turn_timeout"]
+[connection signal="pressed" from="HUD/Button" to="HUD" method="_on_button_pressed"]

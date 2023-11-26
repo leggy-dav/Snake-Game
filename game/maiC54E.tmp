@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://x0julvb20t1j"]
+
+[ext_resource type="PackedScene" uid="uid://v30cf8i15vrn" path="res://tile_map.tscn" id="1_jrfpb"]
+[ext_resource type="PackedScene" uid="uid://bfsqwkqf10gce" path="res://snake/snake_head.tscn" id="2_eau8g"]
+[ext_resource type="Script" path="res://Game_Manager.gd" id="3_nr774"]
+[ext_resource type="PackedScene" uid="uid://b2cp23x5h0tqj" path="res://food.tscn" id="4_1eon6"]
+
+[node name="Main" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_jrfpb")]
+position = Vector2(176, 176)
+
+[node name="SnakeHead" parent="." instance=ExtResource("2_eau8g")]
+position = Vector2(184, 185)
+
+[node name="TimerTurn" type="Timer" parent="."]
+wait_time = 0.16
+autostart = true
+
+[node name="Game_Manager" type="Node2D" parent="."]
+script = ExtResource("3_nr774")
+food = ExtResource("4_1eon6")
+
+[connection signal="timeout" from="TimerTurn" to="SnakeHead" method="_on_timer_turn_timeout"]
+[connection signal="timeout" from="TimerTurn" to="Game_Manager" method="_on_timer_turn_timeout"]

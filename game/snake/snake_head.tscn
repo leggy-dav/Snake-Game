@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfsqwkqf10gce"]
+
+[ext_resource type="Script" path="res://snake/snake_head.gd" id="1_1ks8o"]
+[ext_resource type="PackedScene" uid="uid://dpwh6pkrxr0av" path="res://snake/snake_tail.tscn" id="2_pqqy5"]
+[ext_resource type="Texture2D" uid="uid://cqsmhb1g5yry6" path="res://images/body-01.png" id="2_pqv3f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7c07t"]
+atlas = ExtResource("2_pqv3f")
+region = Rect2(0, 0, 16, 16)
+
+[node name="SnakeHead" type="Node2D"]
+z_index = 10
+script = ExtResource("1_1ks8o")
+tail_obj = ExtResource("2_pqqy5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_7c07t")

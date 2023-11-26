@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpwh6pkrxr0av"]
+
+[ext_resource type="Texture2D" uid="uid://cqsmhb1g5yry6" path="res://images/body-01.png" id="1_erg3v"]
+[ext_resource type="Script" path="res://snake/snake_tail.gd" id="1_f2qvj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ig34"]
+atlas = ExtResource("1_erg3v")
+region = Rect2(16, 0, 16, 16)
+
+[node name="SnakeTail" type="Node2D"]
+script = ExtResource("1_f2qvj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_6ig34")
